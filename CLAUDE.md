@@ -6,8 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 uv sync                        # install all deps (including dev)
-uv run python ptt/scraper.py   # run a scraper directly
-uv run python ptt/scraper.py Gossiping 2  # board, pages
+uv run python ptt/scraper.py <keyword> [board] [pages]
+# e.g. uv run python ptt/scraper.py 蝦皮 Gossiping 2
+# saves to ptt/output/<keyword>_<timestamp>.csv
 
 uv run pytest                  # run all tests
 uv run pytest ptt/             # run tests for one scraper
