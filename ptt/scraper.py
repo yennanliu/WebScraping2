@@ -11,6 +11,14 @@ from bs4 import BeautifulSoup
 
 BASE_URL = "https://www.ptt.cc"
 COOKIE = {"over18": "1"}
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept-Language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+}
 OUTPUT_DIR = Path(__file__).parent / "output"
 
 
@@ -41,7 +49,7 @@ def search(keyword: str, board: str = "Gossiping", pages: int = 1) -> list[dict]
     url = f"{BASE_URL}/bbs/{board}/search?q={quote(keyword)}"
     posts = []
 
-    with httpx.Client(cookies=COOKIE, follow_redirects=True) as client:
+    with httpx.Client(headers=HEADERS, cookies=COOKIE, follow_redirects=True) as client:
         for _ in range(pages):
             resp = client.get(url)
             resp.raise_for_status()
