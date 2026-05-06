@@ -1,0 +1,16 @@
+[project]
+name = "webscraping2"
+version = "0.1.0"
+description = "Modular web scrapers — one directory per target site"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.27",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4",
+]
