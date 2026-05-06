@@ -1,5 +1,16 @@
 # PTT Scraper — Improvement Plan
 
+## Ref
+
+- https://github.com/jwlin/ptt-web-crawler/tree/master
+- https://github.com/afunTW/ptt-web-crawler
+
+## Todo
+
+1. try `index` ?
+    - https://www.ptt.cc/bbs/PublicServan/index91.html
+    - https://www.ptt.cc/bbs/PublicServan/index10.html
+
 ## Why the result count is capped
 
 `ptt.cc/bbs/{board}/search?q={keyword}` exposes a **finite search index**, not the full post archive.
