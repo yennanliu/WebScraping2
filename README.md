@@ -17,24 +17,22 @@ Searches a PTT board by keyword, fetches the full content of each matching post,
 **Usage**
 
 ```bash
-uv run python ptt/scraper.py <keyword> [board] [pages]
+uv run python ptt/scraper.py <keyword> [board] [pages] [count]
 
-uv run python ptt/scraper.py 蝦皮
-uv run python ptt/scraper.py iphone Gossiping 3
-
-
-uv run python ptt/scraper.py 蝦皮 e-seller 100
+uv run python ptt/scraper.py 蝦皮                       # 1 page, unlimited records
+uv run python ptt/scraper.py iphone Gossiping 3         # 3 pages, all records
+uv run python ptt/scraper.py 蝦皮 e-seller 5 50         # 5 pages, max 50 records
 ```
 
 Output is saved to `ptt/output/<keyword>_<timestamp>.csv`:
 
-| column  | description              |
-|---------|--------------------------|
-| title   | post title               |
-| url     | full URL to the post     |
-| content | body text (ads stripped) |
-| time    | post timestamp from PTT  |
-| author  | PTT username             |
+| column      | description                      |
+|-------------|----------------------------------|
+| title       | post title                       |
+| url         | full URL to the post             |
+| create_time | post creation time (ISO-8601)    |
+| author      | PTT username                     |
+| content     | body text (noise stripped)       |
 
 ## Architecture
 

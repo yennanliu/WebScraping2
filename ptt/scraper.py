@@ -75,41 +75,39 @@ def fetch_post(client: httpx.Client, url: str) -> dict | None:
     return {
         "title":       title,
         "url":         url,
-        "content":     content,
         "create_time": create_time,
         "author":      author,
+        "content":     content,
     }
 
 
 def search(
     keyword: str,
     board:   str = "Gossiping",
-    count:   int = 0,           # 0 = no limit
-    pages:   int = 10,          # safety cap on pages browsed
+    pages:   int = 1,   # how many result pages to walk back through
+    count:   int = 0,   # hard cap on total records (0 = unlimited)
 ) -> list[dict]:
-    """Search a PTT board for posts matching keyword; fetch full content of each."""
+    """Search a PTT board for posts matching keyword; auto-paginate up to `pages` pages."""
     url = f"{BASE_URL}/bbs/{board}/search?q={quote(keyword)}"
     posts: list[dict] = []
 
     with httpx.Client(headers=HEADERS, cookies=COOKIE, follow_redirects=True) as client:
-        for _ in range(pages):
+        for page_num in range(1, pages + 1):
+            print(f"  page {page_num}/{pages} …", file=sys.stderr)
             resp = client.get(url)
             resp.raise_for_status()
             soup = BeautifulSoup(resp.text, "lxml")
 
             for entry in soup.select("div.r-ent"):
-                if count and len(posts) >= count:
-                    break
                 title_tag = entry.select_one("div.title a")
                 if not title_tag:
                     continue
                 post = fetch_post(client, BASE_URL + title_tag["href"])
                 if post:
                     posts.append(post)
-                    print(f"  [{len(posts)}] {post['title']}", file=sys.stderr)
-
-            if count and len(posts) >= count:
-                break
+                    print(f"    [{len(posts)}] {post['title']}", file=sys.stderr)
+                if count and len(posts) >= count:
+                    return posts
 
             prev = soup.select_one("a.btn.wide", string=lambda t: t and "上頁" in t)
             if not prev:
@@ -127,7 +125,7 @@ def save_csv(posts: list[dict], keyword: str) -> Path:
 
     with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(
-            f, fieldnames=["title", "url", "content", "create_time", "author"]
+            f, fieldnames=["title", "url", "create_time", "author", "content"]
         )
         writer.writeheader()
         writer.writerows(posts)
@@ -138,23 +136,23 @@ def save_csv(posts: list[dict], keyword: str) -> Path:
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print(
-            "usage: python scraper.py <keyword> [board] [count] [pages]\n"
+            "usage: python scraper.py <keyword> [board] [pages] [count]\n"
             "  keyword  search term (e.g. 蝦皮)\n"
             "  board    PTT board name  (default: Gossiping)\n"
-            "  count    max records     (default: 0 = unlimited)\n"
-            "  pages    max pages       (default: 10)",
+            "  pages    pages to paginate through (default: 1)\n"
+            "  count    max records, 0 = unlimited (default: 0)",
             file=sys.stderr,
         )
         sys.exit(1)
 
     keyword = sys.argv[1]
     board   = sys.argv[2] if len(sys.argv) > 2 else "Gossiping"
-    count   = int(sys.argv[3]) if len(sys.argv) > 3 else 0
-    pages   = int(sys.argv[4]) if len(sys.argv) > 4 else 10
+    pages   = int(sys.argv[3]) if len(sys.argv) > 3 else 1
+    count   = int(sys.argv[4]) if len(sys.argv) > 4 else 0
 
     limit_str = str(count) if count else "unlimited"
-    print(f"searching '{keyword}' in {board} (max {limit_str} records, {pages} pages)…", file=sys.stderr)
+    print(f"searching '{keyword}' in {board} ({pages} page(s), max {limit_str} records)…", file=sys.stderr)
 
-    posts = search(keyword, board, count, pages)
+    posts = search(keyword, board, pages, count)
     path  = save_csv(posts, keyword)
     print(f"\nsaved {len(posts)} posts → {path}")
