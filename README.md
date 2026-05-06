@@ -21,6 +21,9 @@ uv run python ptt/scraper.py <keyword> [board] [pages]
 
 uv run python ptt/scraper.py 蝦皮
 uv run python ptt/scraper.py iphone Gossiping 3
+
+
+uv run python ptt/scraper.py 蝦皮 e-seller 100
 ```
 
 Output is saved to `ptt/output/<keyword>_<timestamp>.csv`:
