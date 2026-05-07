@@ -1,0 +1,23 @@
+{
+  "board": "Gossiping",
+  "keyword": "蝦皮",
+  "max_page": 39116,
+  "target_page": 38617,
+  "next_page": 38616,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/Gossiping/M.1778120139.A.E80.html",
+    "https://www.ptt.cc/bbs/Gossiping/M.1777902927.A.312.html",
+    "https://www.ptt.cc/bbs/Gossiping/M.1777816814.A.52A.html",
+    "https://www.ptt.cc/bbs/Gossiping/M.1777785598.A.034.html",
+    "https://www.ptt.cc/bbs/Gossiping/M.1777641860.A.A20.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/Gossiping/M.1777785598.A.034.html",
+    "https://www.ptt.cc/bbs/Gossiping/M.1777816814.A.52A.html",
+    "https://www.ptt.cc/bbs/Gossiping/M.1778120139.A.E80.html",
+    "https://www.ptt.cc/bbs/Gossiping/M.1777641860.A.A20.html",
+    "https://www.ptt.cc/bbs/Gossiping/M.1777902927.A.312.html"
+  ],
+  "csv_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_Gossiping_20260507_161851.csv",
+  "phase1_done": true
+}

@@ -17,18 +17,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
-import httpx
 from bs4 import BeautifulSoup
+from curl_cffi import requests as curl_requests
 
 BASE_URL = "https://www.ptt.cc"
 COOKIE = {"over18": "1"}
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/124.0.0.0 Safari/537.36"
-    ),
-}
 OUTPUT_DIR = Path(__file__).parent / "output"
 CRAWL_DELAY = 0.05  # seconds between index-page requests (be polite)
 
@@ -64,16 +57,16 @@ def _parse_time(raw: str) -> str:
         return raw.strip()
 
 
-# ── thread-local HTTP client (one connection pool per worker thread) ──────────
+# ── thread-local HTTP session (one curl handle per worker thread) ─────────────
 
 _local = threading.local()
 
 
-def _client() -> httpx.Client:
+def _client() -> curl_requests.Session:
     if not hasattr(_local, "http"):
-        _local.http = httpx.Client(
-            headers=HEADERS, cookies=COOKIE, follow_redirects=True, timeout=30
-        )
+        s = curl_requests.Session(impersonate="chrome131")
+        s.cookies.update(COOKIE)
+        _local.http = s
     return _local.http
 
 
@@ -92,12 +85,13 @@ def get_max_index(board: str) -> int:
     resp = _client().get(f"{BASE_URL}/bbs/{board}/index.html")
     resp.raise_for_status()
     # after redirect, the URL itself contains the max index
-    m = re.search(r"index(\d+)\.html", str(resp.url))
-    if m:
-        return int(m.group(1))
-    # fallback: parse from 上頁 link
+    # index.html serves the latest page directly (no redirect)
+    # the 上頁 link points to max-1, so max = that number + 1
     soup = BeautifulSoup(resp.text, "lxml")
-    prev = soup.select_one("a.btn.wide", string=lambda t: t and "上頁" in t)
+    prev = next(
+        (a for a in soup.select("a.btn.wide") if "上頁" in a.text),
+        None,
+    )
     if not prev:
         raise RuntimeError(f"Cannot determine max index for board '{board}'")
     return int(prev["href"].rsplit("index", 1)[1].replace(".html", "")) + 1

@@ -7,19 +7,11 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import quote
 
-import httpx
 from bs4 import BeautifulSoup
+from curl_cffi import requests as curl_requests
 
 BASE_URL = "https://www.ptt.cc"
 COOKIE = {"over18": "1"}
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/124.0.0.0 Safari/537.36"
-    ),
-    "Accept-Language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-}
 OUTPUT_DIR = Path(__file__).parent / "output"
 
 # Cut points — ordered from most specific to least
@@ -52,7 +44,7 @@ def _parse_time(raw: str) -> str:
         return raw.strip()
 
 
-def fetch_post(client: httpx.Client, url: str) -> dict | None:
+def fetch_post(client: curl_requests.Session, url: str) -> dict | None:
     """Fetch a single post and return cleaned, structured data."""
     resp = client.get(url)
     resp.raise_for_status()
@@ -91,7 +83,8 @@ def search(
     url = f"{BASE_URL}/bbs/{board}/search?q={quote(keyword)}"
     posts: list[dict] = []
 
-    with httpx.Client(headers=HEADERS, cookies=COOKIE, follow_redirects=True) as client:
+    with curl_requests.Session(impersonate="chrome131") as client:
+        client.cookies.update(COOKIE)
         for page_num in range(1, pages + 1):
             print(f"  page {page_num}/{pages} …", file=sys.stderr)
             resp = client.get(url)
@@ -109,7 +102,9 @@ def search(
                 if count and len(posts) >= count:
                     return posts
 
-            prev = soup.select_one("a.btn.wide", string=lambda t: t and "上頁" in t)
+            prev = next(
+                (a for a in soup.select("a.btn.wide") if "上頁" in a.text), None
+            )
             if not prev:
                 break
             url = BASE_URL + prev["href"]
