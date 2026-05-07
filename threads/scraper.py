@@ -108,6 +108,21 @@ def _extract_posts(payload: dict, seen_ids: set) -> list[dict]:
 # ── browser / scrape logic ────────────────────────────────────────────────────
 
 
+def _dismiss_popup(page) -> None:
+    """Dismiss the Threads login/signup popup that appears for unauthenticated visitors.
+
+    Strategy: press Escape (works for most Meta modals), then click outside the
+    modal bounds as a fallback. The modal is centered, so (10, 10) is always in
+    the dimmed overlay area outside it.
+    """
+    page.wait_for_timeout(1500)  # let the modal finish animating in
+    page.keyboard.press("Escape")
+    page.wait_for_timeout(600)
+    # fallback: click top-left corner of the viewport (outside the centered modal)
+    page.mouse.click(10, 10)
+    page.wait_for_timeout(600)
+
+
 def search(keyword: str, headless: bool = False, probe: bool = False) -> list[dict]:
     """
     Open Threads search for `keyword`, scroll until no new posts load, and
@@ -159,6 +174,7 @@ def search(keyword: str, headless: bool = False, probe: bool = False) -> list[di
 
         print(f"opening: {search_url}")
         page.goto(search_url, wait_until="networkidle", timeout=30_000)
+        _dismiss_popup(page)
 
         idle = 0
         while idle < MAX_IDLE_SCROLLS:
