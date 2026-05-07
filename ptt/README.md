@@ -48,6 +48,9 @@ uv run python ptt/index_scraper.py 蝦皮 Gossiping 5000
 
 # resume an interrupted run — same command, picks up automatically
 uv run python ptt/index_scraper.py 蝦皮 Gossiping 5000
+
+
+uv run python ptt/index_scraper.py 蝦皮 e-seller 100
 ```
 
 **Coverage guide for Gossiping** (~55 new pages/day):

@@ -267,6 +267,7 @@ def _phase2(state: dict, workers: int) -> None:
         print(f"\nPhase 2 done — {out_path}")
         return
 
+    cutoff = datetime.now() - timedelta(days=365)
     lock = threading.Lock()
     new_posts: list[dict] = []
 
@@ -281,11 +282,18 @@ def _phase2(state: dict, workers: int) -> None:
                 done_count += 1
                 fetched.add(url)
                 if post:
-                    new_posts.append(post)
+                    try:
+                        post_dt = datetime.strptime(post["create_time"], "%Y-%m-%d %H:%M:%S")
+                        if post_dt >= cutoff:
+                            new_posts.append(post)
+                        else:
+                            post = None  # too old — suppress label
+                    except ValueError:
+                        new_posts.append(post)  # unparseable date, keep it
                 state["fetched_urls"] = list(fetched)
                 _save(state)
 
-                label = post["title"][:60] if post else "(failed / deleted)"
+                label = post["title"][:60] if post else "(too old / failed)"
                 print(f"  [{done_count:>5}/{total}]  {label}")
 
     # merge with any previously written data, then write the full array
