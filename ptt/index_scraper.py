@@ -192,9 +192,30 @@ def _phase1(state: dict) -> None:
 # ── phase 2: parallel post fetch ──────────────────────────────────────────────
 
 
+def _csv_has_data(path: Path) -> bool:
+    """Return True only if the CSV has at least one data row beyond the header."""
+    if not path.exists():
+        return False
+    try:
+        with path.open("r", encoding="utf-8") as f:
+            next(f)  # header
+            next(f)  # first data row
+            return True
+    except StopIteration:
+        return False
+
+
 def _phase2(state: dict, workers: int) -> None:
     csv_path = Path(state["csv_path"])
     fetched = set(state["fetched_urls"])
+
+    # CSV missing or empty despite progress claiming work is done — re-fetch
+    if fetched and not _csv_has_data(csv_path):
+        print("  [WARN] CSV missing or empty — resetting, will re-fetch all records")
+        fetched = set()
+        state["fetched_urls"] = []
+        _save(state)
+
     pending = [u for u in state["matched_urls"] if u not in fetched]
     total = len(state["matched_urls"])
     done_count = len(fetched)
