@@ -1,0 +1,15 @@
+{
+  "board": "mobile-game",
+  "keyword": "蝦皮",
+  "max_page": 1071,
+  "target_page": 872,
+  "next_page": 871,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/Mobile-game/M.1750325826.A.A7F.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/Mobile-game/M.1750325826.A.A7F.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_mobile-game_20260507_173012.json",
+  "phase1_done": true
+}

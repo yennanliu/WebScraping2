@@ -1,0 +1,11 @@
+{
+  "board": "Brand",
+  "keyword": "蝦皮",
+  "max_page": 1786,
+  "target_page": 1587,
+  "next_page": 1586,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_Brand_20260507_173432.json",
+  "phase1_done": true
+}

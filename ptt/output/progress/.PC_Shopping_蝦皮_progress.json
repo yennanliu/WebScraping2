@@ -1,0 +1,31 @@
+{
+  "board": "PC_Shopping",
+  "keyword": "蝦皮",
+  "max_page": 4003,
+  "target_page": 3804,
+  "next_page": 3803,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1767766984.A.F5E.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1767762282.A.502.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1765480628.A.7AC.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1764519614.A.74E.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1764073097.A.58F.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1763635973.A.A01.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1763367836.A.2E8.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1762501036.A.A95.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1762508477.A.76A.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1762508477.A.76A.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1765480628.A.7AC.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1763367836.A.2E8.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1764073097.A.58F.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1764519614.A.74E.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1763635973.A.A01.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1767766984.A.F5E.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1767762282.A.502.html",
+    "https://www.ptt.cc/bbs/PC_Shopping/M.1762501036.A.A95.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_PC_Shopping_20260507_173338.json",
+  "phase1_done": true
+}

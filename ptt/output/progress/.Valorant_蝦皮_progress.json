@@ -1,0 +1,11 @@
+{
+  "board": "Valorant",
+  "keyword": "蝦皮",
+  "max_page": 37,
+  "target_page": 1,
+  "next_page": 0,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_Valorant_20260507_172933.json",
+  "phase1_done": true
+}

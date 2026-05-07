@@ -27,6 +27,7 @@ except ImportError:
 BASE_URL = "https://www.ptt.cc"
 COOKIE = {"over18": "1"}
 OUTPUT_DIR = Path(__file__).parent / "output"
+PROGRESS_DIR = OUTPUT_DIR / "progress"
 CRAWL_DELAY = 0.05  # seconds between index-page requests (be polite)
 
 def _parse_time(raw: str) -> str:
@@ -153,7 +154,7 @@ def fetch_post(url: str) -> dict | None:
 
 
 def _progress_path(board: str, keyword: str) -> Path:
-    return OUTPUT_DIR / f".{board}_{keyword.replace('/', '_')}_progress.json"
+    return PROGRESS_DIR / f".{board}_{keyword.replace('/', '_')}_progress.json"
 
 
 def _load(board: str, keyword: str) -> dict | None:
@@ -327,6 +328,7 @@ def crawl(
     Re-running the same call resumes from the saved progress file.
     """
     OUTPUT_DIR.mkdir(exist_ok=True)
+    PROGRESS_DIR.mkdir(exist_ok=True)
     state = _load(board, keyword)
 
     if state is None:

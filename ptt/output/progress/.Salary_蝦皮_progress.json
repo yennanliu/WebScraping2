@@ -1,0 +1,23 @@
+{
+  "board": "Salary",
+  "keyword": "蝦皮",
+  "max_page": 3887,
+  "target_page": 3688,
+  "next_page": 3687,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/Salary/M.1727286513.A.7F3.html",
+    "https://www.ptt.cc/bbs/Salary/M.1720689580.A.346.html",
+    "https://www.ptt.cc/bbs/Salary/M.1684375511.A.246.html",
+    "https://www.ptt.cc/bbs/Salary/M.1684384972.A.3D1.html",
+    "https://www.ptt.cc/bbs/Salary/M.1680254272.A.0C5.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/Salary/M.1680254272.A.0C5.html",
+    "https://www.ptt.cc/bbs/Salary/M.1727286513.A.7F3.html",
+    "https://www.ptt.cc/bbs/Salary/M.1684384972.A.3D1.html",
+    "https://www.ptt.cc/bbs/Salary/M.1684375511.A.246.html",
+    "https://www.ptt.cc/bbs/Salary/M.1720689580.A.346.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_Salary_20260507_173303.json",
+  "phase1_done": true
+}

@@ -1,0 +1,27 @@
+{
+  "board": "MuscleBeach",
+  "keyword": "蝦皮",
+  "max_page": 2961,
+  "target_page": 2762,
+  "next_page": 2761,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1753777846.A.05A.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1752116468.A.058.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1749183444.A.D79.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1745619292.A.C50.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1727806297.A.7F3.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1676129855.A.A0D.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1675329128.A.851.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1745619292.A.C50.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1749183444.A.D79.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1753777846.A.05A.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1675329128.A.851.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1676129855.A.A0D.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1752116468.A.058.html",
+    "https://www.ptt.cc/bbs/MuscleBeach/M.1727806297.A.7F3.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_MuscleBeach_20260507_173246.json",
+  "phase1_done": true
+}

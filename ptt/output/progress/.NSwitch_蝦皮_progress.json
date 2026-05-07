@@ -1,0 +1,31 @@
+{
+  "board": "NSwitch",
+  "keyword": "蝦皮",
+  "max_page": 2745,
+  "target_page": 2546,
+  "next_page": 2545,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/NSwitch/M.1765475697.A.C87.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1762790998.A.BC6.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1760079024.A.BE8.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1759388317.A.0AC.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1753924880.A.58A.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1752819556.A.FD4.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1751881648.A.278.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1751355560.A.770.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1717371750.A.200.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/NSwitch/M.1753924880.A.58A.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1759388317.A.0AC.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1752819556.A.FD4.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1762790998.A.BC6.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1751881648.A.278.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1760079024.A.BE8.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1751355560.A.770.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1717371750.A.200.html",
+    "https://www.ptt.cc/bbs/NSwitch/M.1765475697.A.C87.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_NSwitch_20260507_172858.json",
+  "phase1_done": true
+}

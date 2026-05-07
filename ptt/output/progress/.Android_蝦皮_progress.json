@@ -1,0 +1,25 @@
+{
+  "board": "Android",
+  "keyword": "蝦皮",
+  "max_page": 2419,
+  "target_page": 2220,
+  "next_page": 2219,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/Android/M.1760252923.A.2E3.html",
+    "https://www.ptt.cc/bbs/Android/M.1739944558.A.834.html",
+    "https://www.ptt.cc/bbs/Android/M.1688320411.A.BD0.html",
+    "https://www.ptt.cc/bbs/Android/M.1652251709.A.8E0.html",
+    "https://www.ptt.cc/bbs/Android/M.1638237660.A.7C7.html",
+    "https://www.ptt.cc/bbs/Android/M.1583937669.A.D1F.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/Android/M.1688320411.A.BD0.html",
+    "https://www.ptt.cc/bbs/Android/M.1760252923.A.2E3.html",
+    "https://www.ptt.cc/bbs/Android/M.1638237660.A.7C7.html",
+    "https://www.ptt.cc/bbs/Android/M.1583937669.A.D1F.html",
+    "https://www.ptt.cc/bbs/Android/M.1739944558.A.834.html",
+    "https://www.ptt.cc/bbs/Android/M.1652251709.A.8E0.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_Android_20260507_173620.json",
+  "phase1_done": true
+}

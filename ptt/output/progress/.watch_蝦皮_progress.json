@@ -1,0 +1,11 @@
+{
+  "board": "watch",
+  "keyword": "蝦皮",
+  "max_page": 4003,
+  "target_page": 3804,
+  "next_page": 3803,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_watch_20260507_173507.json",
+  "phase1_done": true
+}

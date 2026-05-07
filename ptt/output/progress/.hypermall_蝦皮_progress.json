@@ -1,0 +1,21 @@
+{
+  "board": "hypermall",
+  "keyword": "蝦皮",
+  "max_page": 1523,
+  "target_page": 1324,
+  "next_page": 1323,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/hypermall/M.1758686185.A.710.html",
+    "https://www.ptt.cc/bbs/hypermall/M.1681293747.A.585.html",
+    "https://www.ptt.cc/bbs/hypermall/M.1637414358.A.593.html",
+    "https://www.ptt.cc/bbs/hypermall/M.1629306965.A.3CD.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/hypermall/M.1681293747.A.585.html",
+    "https://www.ptt.cc/bbs/hypermall/M.1637414358.A.593.html",
+    "https://www.ptt.cc/bbs/hypermall/M.1758686185.A.710.html",
+    "https://www.ptt.cc/bbs/hypermall/M.1629306965.A.3CD.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_hypermall_20260507_173449.json",
+  "phase1_done": true
+}

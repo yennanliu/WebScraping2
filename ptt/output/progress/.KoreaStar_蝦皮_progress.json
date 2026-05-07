@@ -1,0 +1,11 @@
+{
+  "board": "KoreaStar",
+  "keyword": "蝦皮",
+  "max_page": 3430,
+  "target_page": 3231,
+  "next_page": 3230,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_KoreaStar_20260507_172805.json",
+  "phase1_done": true
+}

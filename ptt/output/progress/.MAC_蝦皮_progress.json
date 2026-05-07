@@ -1,0 +1,15 @@
+{
+  "board": "MAC",
+  "keyword": "蝦皮",
+  "max_page": 2621,
+  "target_page": 2422,
+  "next_page": 2421,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/MAC/M.1657870579.A.F1B.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/MAC/M.1657870579.A.F1B.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_MAC_20260507_173638.json",
+  "phase1_done": true
+}

@@ -62,7 +62,7 @@ uv run python ptt/index_scraper.py 蝦皮 e-seller 100
 | 20,000 | ~1 year |
 | 50,000 | full archive |
 
-Output is saved to `ptt/output/<keyword>_<board>_<timestamp>.csv`.
+Output is saved to `ptt/output/<keyword>_<board>_<timestamp>.json`.
 
 ---
 
@@ -79,14 +79,16 @@ Output is saved to `ptt/output/<keyword>_<board>_<timestamp>.csv`.
 
 ```
 ptt/
-├── scraper.py          search-based scraper  →  fetch_post(), search(), save_csv()
+├── scraper.py          search-based scraper  →  fetch_post(), search(), save_json()
 ├── index_scraper.py    index-based scraper   →  crawl(), get_max_index()
 ├── clean.py            shared cleaning       →  clean_content()
 ├── script/
-│   └── clean_data.py   post-process existing CSVs (uses clean.py)
+│   ├── scrape_all_boards.sh   run all boards in sequence
+│   └── clean_data.py          post-process existing CSVs (uses clean.py)
 └── output/
-    ├── *.csv           scraping results
-    └── .*.json         resume progress files (hidden, auto-managed)
+    ├── *.json            scraping results
+    └── progress/
+        └── .*.json       resume progress files (hidden, auto-managed)
 ```
 
 `index_scraper.py` runs in two phases:

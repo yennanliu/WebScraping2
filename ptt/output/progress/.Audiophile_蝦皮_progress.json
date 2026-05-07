@@ -1,0 +1,11 @@
+{
+  "board": "Audiophile",
+  "keyword": "蝦皮",
+  "max_page": 2716,
+  "target_page": 2517,
+  "next_page": 2516,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_Audiophile_20260507_173749.json",
+  "phase1_done": true
+}

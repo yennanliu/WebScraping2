@@ -1,0 +1,17 @@
+{
+  "board": "WomenTalk",
+  "keyword": "蝦皮",
+  "max_page": 9003,
+  "target_page": 8804,
+  "next_page": 8803,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/WomenTalk/M.1775358040.A.0A8.html",
+    "https://www.ptt.cc/bbs/WomenTalk/M.1762935275.A.A75.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/WomenTalk/M.1775358040.A.0A8.html",
+    "https://www.ptt.cc/bbs/WomenTalk/M.1762935275.A.A75.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_WomenTalk_20260507_173047.json",
+  "phase1_done": true
+}

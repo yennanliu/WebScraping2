@@ -1,0 +1,21 @@
+{
+  "board": "MakeUp",
+  "keyword": "蝦皮",
+  "max_page": 3903,
+  "target_page": 3704,
+  "next_page": 3703,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/MakeUp/M.1772099368.A.A6C.html",
+    "https://www.ptt.cc/bbs/MakeUp/M.1682666638.A.72A.html",
+    "https://www.ptt.cc/bbs/MakeUp/M.1681879040.A.9A9.html",
+    "https://www.ptt.cc/bbs/MakeUp/M.1646388317.A.A46.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/MakeUp/M.1772099368.A.A6C.html",
+    "https://www.ptt.cc/bbs/MakeUp/M.1681879040.A.9A9.html",
+    "https://www.ptt.cc/bbs/MakeUp/M.1682666638.A.72A.html",
+    "https://www.ptt.cc/bbs/MakeUp/M.1646388317.A.A46.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_MakeUp_20260507_173525.json",
+  "phase1_done": true
+}

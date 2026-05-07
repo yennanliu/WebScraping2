@@ -1,0 +1,15 @@
+{
+  "board": "Steam",
+  "keyword": "蝦皮",
+  "max_page": 4002,
+  "target_page": 3803,
+  "next_page": 3802,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/Steam/M.1764310723.A.AAE.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/Steam/M.1764310723.A.AAE.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_Steam_20260507_172823.json",
+  "phase1_done": true
+}

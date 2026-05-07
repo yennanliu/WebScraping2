@@ -1,0 +1,17 @@
+{
+  "board": "cookclub",
+  "keyword": "蝦皮",
+  "max_page": 4365,
+  "target_page": 4166,
+  "next_page": 4165,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/cookclub/M.1775657084.A.FEE.html",
+    "https://www.ptt.cc/bbs/cookclub/M.1728264511.A.401.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/cookclub/M.1775657084.A.FEE.html",
+    "https://www.ptt.cc/bbs/cookclub/M.1728264511.A.401.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_cookclub_20260507_173156.json",
+  "phase1_done": true
+}

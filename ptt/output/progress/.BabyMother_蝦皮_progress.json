@@ -1,0 +1,41 @@
+{
+  "board": "BabyMother",
+  "keyword": "蝦皮",
+  "max_page": 7866,
+  "target_page": 7667,
+  "next_page": 7666,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/BabyMother/M.1767117147.A.9C2.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1758244440.A.26C.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1755263566.A.573.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1751384533.A.1A4.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1750515652.A.8DE.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1747652619.A.036.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1744705327.A.0D3.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1744094737.A.C27.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1743744611.A.321.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1741274701.A.CFF.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1735928074.A.F82.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1735192714.A.7C4.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1732894935.A.A62.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1730987415.A.866.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/BabyMother/M.1735192714.A.7C4.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1735928074.A.F82.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1747652619.A.036.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1755263566.A.573.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1751384533.A.1A4.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1730987415.A.866.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1732894935.A.A62.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1744705327.A.0D3.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1758244440.A.26C.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1741274701.A.CFF.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1744094737.A.C27.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1767117147.A.9C2.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1743744611.A.321.html",
+    "https://www.ptt.cc/bbs/BabyMother/M.1750515652.A.8DE.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_BabyMother_20260507_173138.json",
+  "phase1_done": true
+}

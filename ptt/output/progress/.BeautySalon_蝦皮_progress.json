@@ -1,0 +1,37 @@
+{
+  "board": "BeautySalon",
+  "keyword": "蝦皮",
+  "max_page": 3530,
+  "target_page": 3331,
+  "next_page": 3330,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/BeautySalon/M.1739244964.A.6B1.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1722405911.A.6E8.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1700904796.A.551.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1699460393.A.95D.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1694588096.A.494.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1691489876.A.A10.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1686572388.A.9A9.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1686203391.A.ACB.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1686224878.A.60D.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1683636216.A.24F.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1680106128.A.514.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1680231113.A.4B0.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/BeautySalon/M.1680106128.A.514.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1694588096.A.494.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1686572388.A.9A9.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1699460393.A.95D.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1700904796.A.551.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1686224878.A.60D.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1739244964.A.6B1.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1680231113.A.4B0.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1683636216.A.24F.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1691489876.A.A10.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1686203391.A.ACB.html",
+    "https://www.ptt.cc/bbs/BeautySalon/M.1722405911.A.6E8.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_BeautySalon_20260507_173213.json",
+  "phase1_done": true
+}

@@ -1,0 +1,11 @@
+{
+  "board": "Boy-Girl",
+  "keyword": "蝦皮",
+  "max_page": 6501,
+  "target_page": 6302,
+  "next_page": 6301,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_Boy-Girl_20260507_173103.json",
+  "phase1_done": true
+}

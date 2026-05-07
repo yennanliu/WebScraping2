@@ -1,0 +1,11 @@
+{
+  "board": "C_BOO",
+  "keyword": "蝦皮",
+  "max_page": 3167,
+  "target_page": 2968,
+  "next_page": 2967,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_C_BOO_20260507_173029.json",
+  "phase1_done": true
+}

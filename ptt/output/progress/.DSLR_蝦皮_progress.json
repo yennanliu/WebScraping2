@@ -1,0 +1,15 @@
+{
+  "board": "DSLR",
+  "keyword": "蝦皮",
+  "max_page": 2523,
+  "target_page": 2324,
+  "next_page": 2323,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/DSLR/M.1723344856.A.55E.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/DSLR/M.1723344856.A.55E.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_DSLR_20260507_173732.json",
+  "phase1_done": true
+}

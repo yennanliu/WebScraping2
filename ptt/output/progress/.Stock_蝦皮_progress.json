@@ -1,0 +1,11 @@
+{
+  "board": "Stock",
+  "keyword": "蝦皮",
+  "max_page": 10021,
+  "target_page": 9822,
+  "next_page": 9821,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_Stock_20260507_172711.json",
+  "phase1_done": true
+}

@@ -1,0 +1,11 @@
+{
+  "board": "FITNESS",
+  "keyword": "蝦皮",
+  "max_page": 1606,
+  "target_page": 1407,
+  "next_page": 1406,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_FITNESS_20260507_173230.json",
+  "phase1_done": true
+}

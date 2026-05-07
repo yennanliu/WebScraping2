@@ -1,0 +1,11 @@
+{
+  "board": "marriage",
+  "keyword": "蝦皮",
+  "max_page": 3080,
+  "target_page": 2881,
+  "next_page": 2880,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_marriage_20260507_173121.json",
+  "phase1_done": true
+}

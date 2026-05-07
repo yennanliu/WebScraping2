@@ -1,0 +1,15 @@
+{
+  "board": "Headphone",
+  "keyword": "蝦皮",
+  "max_page": 4001,
+  "target_page": 3802,
+  "next_page": 3801,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/Headphone/M.1769529088.A.6C1.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/Headphone/M.1769529088.A.6C1.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_Headphone_20260507_173713.json",
+  "phase1_done": true
+}

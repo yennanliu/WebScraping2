@@ -1,0 +1,25 @@
+{
+  "board": "MobileComm",
+  "keyword": "蝦皮",
+  "max_page": 7626,
+  "target_page": 7427,
+  "next_page": 7426,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/MobileComm/M.1773470566.A.336.html",
+    "https://www.ptt.cc/bbs/MobileComm/M.1770887279.A.051.html",
+    "https://www.ptt.cc/bbs/MobileComm/M.1760449235.A.668.html",
+    "https://www.ptt.cc/bbs/MobileComm/M.1758847119.A.D88.html",
+    "https://www.ptt.cc/bbs/MobileComm/M.1758524939.A.680.html",
+    "https://www.ptt.cc/bbs/MobileComm/M.1755249669.A.89F.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/MobileComm/M.1755249669.A.89F.html",
+    "https://www.ptt.cc/bbs/MobileComm/M.1758847119.A.D88.html",
+    "https://www.ptt.cc/bbs/MobileComm/M.1773470566.A.336.html",
+    "https://www.ptt.cc/bbs/MobileComm/M.1770887279.A.051.html",
+    "https://www.ptt.cc/bbs/MobileComm/M.1760449235.A.668.html",
+    "https://www.ptt.cc/bbs/MobileComm/M.1758524939.A.680.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_MobileComm_20260507_173356.json",
+  "phase1_done": true
+}

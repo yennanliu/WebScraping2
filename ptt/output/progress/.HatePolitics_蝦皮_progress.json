@@ -1,0 +1,15 @@
+{
+  "board": "HatePolitics",
+  "keyword": "蝦皮",
+  "max_page": 4086,
+  "target_page": 3887,
+  "next_page": 3886,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/HatePolitics/M.1777553639.A.290.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/HatePolitics/M.1777553639.A.290.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_HatePolitics_20260507_172728.json",
+  "phase1_done": true
+}

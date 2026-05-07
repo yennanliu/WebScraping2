@@ -1,0 +1,33 @@
+{
+  "board": "iOS",
+  "keyword": "蝦皮",
+  "max_page": 5831,
+  "target_page": 5632,
+  "next_page": 5631,
+  "matched_urls": [
+    "https://www.ptt.cc/bbs/iOS/M.1760540348.A.E17.html",
+    "https://www.ptt.cc/bbs/iOS/M.1760612328.A.4ED.html",
+    "https://www.ptt.cc/bbs/iOS/M.1758944197.A.E87.html",
+    "https://www.ptt.cc/bbs/iOS/M.1758472255.A.D77.html",
+    "https://www.ptt.cc/bbs/iOS/M.1757668655.A.D71.html",
+    "https://www.ptt.cc/bbs/iOS/M.1748258054.A.0C4.html",
+    "https://www.ptt.cc/bbs/iOS/M.1746029667.A.456.html",
+    "https://www.ptt.cc/bbs/iOS/M.1744208250.A.2E5.html",
+    "https://www.ptt.cc/bbs/iOS/M.1735728910.A.DA2.html",
+    "https://www.ptt.cc/bbs/iOS/M.1730597261.A.E99.html"
+  ],
+  "fetched_urls": [
+    "https://www.ptt.cc/bbs/iOS/M.1735728910.A.DA2.html",
+    "https://www.ptt.cc/bbs/iOS/M.1744208250.A.2E5.html",
+    "https://www.ptt.cc/bbs/iOS/M.1758472255.A.D77.html",
+    "https://www.ptt.cc/bbs/iOS/M.1760612328.A.4ED.html",
+    "https://www.ptt.cc/bbs/iOS/M.1757668655.A.D71.html",
+    "https://www.ptt.cc/bbs/iOS/M.1748258054.A.0C4.html",
+    "https://www.ptt.cc/bbs/iOS/M.1758944197.A.E87.html",
+    "https://www.ptt.cc/bbs/iOS/M.1746029667.A.456.html",
+    "https://www.ptt.cc/bbs/iOS/M.1760540348.A.E17.html",
+    "https://www.ptt.cc/bbs/iOS/M.1730597261.A.E99.html"
+  ],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_iOS_20260507_173602.json",
+  "phase1_done": true
+}

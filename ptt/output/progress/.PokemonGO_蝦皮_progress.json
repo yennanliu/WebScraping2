@@ -1,0 +1,11 @@
+{
+  "board": "PokemonGO",
+  "keyword": "蝦皮",
+  "max_page": 966,
+  "target_page": 767,
+  "next_page": 766,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_PokemonGO_20260507_172954.json",
+  "phase1_done": true
+}

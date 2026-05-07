@@ -1,0 +1,11 @@
+{
+  "board": "miHoYo",
+  "keyword": "蝦皮",
+  "max_page": 1493,
+  "target_page": 1294,
+  "next_page": 1293,
+  "matched_urls": [],
+  "fetched_urls": [],
+  "output_path": "/Users/jliu/WebScraping2/ptt/output/蝦皮_miHoYo_20260507_172916.json",
+  "phase1_done": true
+}
