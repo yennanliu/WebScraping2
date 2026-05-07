@@ -1,12 +1,12 @@
 """PTT index-based scraper — Two-Phase strategy with resume support.
 
 Phase 1  (serial)    crawl index pages, collect matched post URLs → progress file
-Phase 2  (parallel)  fetch post content with thread pool, append to CSV → progress file
+Phase 2  (parallel)  fetch post content with thread pool, append to JSONL → progress file
 
+Output format: newline-delimited JSON (.jsonl) — one post object per line.
 Resume: just re-run the same command; the progress file is picked up automatically.
 """
 
-import csv
 import json
 import sys
 import threading
@@ -136,7 +136,18 @@ def _progress_path(board: str, keyword: str) -> Path:
 
 def _load(board: str, keyword: str) -> dict | None:
     p = _progress_path(board, keyword)
-    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+    if not p.exists():
+        return None
+    state = json.loads(p.read_text(encoding="utf-8"))
+    # migrate legacy "csv_path" key
+    if "csv_path" in state and "output_path" not in state:
+        state["output_path"] = state.pop("csv_path").replace(".csv", ".json")
+        _save(state)
+    # migrate .jsonl → .json
+    elif state.get("output_path", "").endswith(".jsonl"):
+        state["output_path"] = state["output_path"].replace(".jsonl", ".json")
+        _save(state)
+    return state
 
 
 def _save(state: dict) -> None:
@@ -192,26 +203,24 @@ def _phase1(state: dict) -> None:
 # ── phase 2: parallel post fetch ──────────────────────────────────────────────
 
 
-def _csv_has_data(path: Path) -> bool:
-    """Return True only if the CSV has at least one data row beyond the header."""
+def _json_has_data(path: Path) -> bool:
+    """Return True if the JSON file contains a non-empty array."""
     if not path.exists():
         return False
     try:
         with path.open("r", encoding="utf-8") as f:
-            next(f)  # header
-            next(f)  # first data row
-            return True
-    except StopIteration:
+            return len(json.load(f)) > 0
+    except Exception:
         return False
 
 
 def _phase2(state: dict, workers: int) -> None:
-    csv_path = Path(state["csv_path"])
+    out_path = Path(state["output_path"])
     fetched = set(state["fetched_urls"])
 
-    # CSV missing or empty despite progress claiming work is done — re-fetch
-    if fetched and not _csv_has_data(csv_path):
-        print("  [WARN] CSV missing or empty — resetting, will re-fetch all records")
+    # output missing or empty despite progress claiming work is done — re-fetch
+    if fetched and not _json_has_data(out_path):
+        print("  [WARN] output missing or empty — resetting, will re-fetch all records")
         fetched = set()
         state["fetched_urls"] = []
         _save(state)
@@ -223,36 +232,44 @@ def _phase2(state: dict, workers: int) -> None:
     print(f"Phase 2/2 — fetching post content  [{workers} workers]")
     print(f"  {len(pending)} pending  |  {done_count} already done  |  {total} total")
 
-    write_header = not csv_path.exists()
+    if not pending:
+        print(f"\nPhase 2 done — {out_path}")
+        return
+
     lock = threading.Lock()
+    new_posts: list[dict] = []
 
-    with csv_path.open("a", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(
-            f, fieldnames=["title", "url", "create_time", "author", "content"]
-        )
-        if write_header:
-            writer.writeheader()
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = {pool.submit(fetch_post, url): url for url in pending}
 
-        with ThreadPoolExecutor(max_workers=workers) as pool:
-            futures = {pool.submit(fetch_post, url): url for url in pending}
+        for future in as_completed(futures):
+            url = futures[future]
+            post = future.result()
 
-            for future in as_completed(futures):
-                url = futures[future]
-                post = future.result()
+            with lock:
+                done_count += 1
+                fetched.add(url)
+                if post:
+                    new_posts.append(post)
+                state["fetched_urls"] = list(fetched)
+                _save(state)
 
-                with lock:
-                    done_count += 1
-                    fetched.add(url)
-                    if post:
-                        writer.writerow(post)
-                        f.flush()
-                    state["fetched_urls"] = list(fetched)
-                    _save(state)
+                label = post["title"][:60] if post else "(failed / deleted)"
+                print(f"  [{done_count:>5}/{total}]  {label}")
 
-                    label = post["title"][:60] if post else "(failed / deleted)"
-                    print(f"  [{done_count:>5}/{total}]  {label}")
+    # merge with any previously written data, then write the full array
+    existing: list[dict] = []
+    if out_path.exists():
+        try:
+            with out_path.open("r", encoding="utf-8") as f:
+                existing = json.load(f)
+        except (json.JSONDecodeError, ValueError):
+            existing = []
 
-    print(f"\nPhase 2 done — {csv_path}")
+    with out_path.open("w", encoding="utf-8") as f:
+        json.dump(existing + new_posts, f, ensure_ascii=False, indent=2)
+
+    print(f"\nPhase 2 done — {out_path}")
 
 
 # ── public entry ──────────────────────────────────────────────────────────────
@@ -266,7 +283,7 @@ def crawl(
 ) -> Path:
     """
     Crawl `pages` index pages of `board`, collect posts whose title contains
-    `keyword`, fetch their content, and save to CSV.
+    `keyword`, fetch their content, and save to JSONL.
 
     Re-running the same call resumes from the saved progress file.
     """
@@ -284,8 +301,8 @@ def crawl(
             "next_page": max_page,
             "matched_urls": [],
             "fetched_urls": [],
-            "csv_path": str(
-                OUTPUT_DIR / f"{keyword.replace('/', '_')}_{board}_{ts}.csv"
+            "output_path": str(
+                OUTPUT_DIR / f"{keyword.replace('/', '_')}_{board}_{ts}.json"
             ),
             "phase1_done": False,
         }
@@ -303,7 +320,7 @@ def crawl(
         _phase1(state)
 
     _phase2(state, workers)
-    return Path(state["csv_path"])
+    return Path(state["output_path"])
 
 
 # ── CLI ───────────────────────────────────────────────────────────────────────

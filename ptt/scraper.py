@@ -1,6 +1,6 @@
-"""PTT (ptt.cc) keyword scraper — search posts and save to CSV."""
+"""PTT (ptt.cc) keyword scraper — search posts and save to JSON."""
 
-import csv
+import json
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -95,18 +95,14 @@ def search(
     return posts
 
 
-def save_csv(posts: list[dict], keyword: str) -> Path:
-    """Write posts to ptt/output/<keyword>_<timestamp>.csv and return the path."""
+def save_json(posts: list[dict], keyword: str) -> Path:
+    """Write posts to ptt/output/<keyword>_<timestamp>.json and return the path."""
     OUTPUT_DIR.mkdir(exist_ok=True)
     ts   = datetime.now().strftime("%Y%m%d_%H%M%S")
-    path = OUTPUT_DIR / f"{keyword.replace('/', '_')}_{ts}.csv"
+    path = OUTPUT_DIR / f"{keyword.replace('/', '_')}_{ts}.json"
 
-    with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(
-            f, fieldnames=["title", "url", "create_time", "author", "content"]
-        )
-        writer.writeheader()
-        writer.writerows(posts)
+    with path.open("w", encoding="utf-8") as f:
+        json.dump(posts, f, ensure_ascii=False, indent=2)
 
     return path
 
@@ -132,5 +128,5 @@ if __name__ == "__main__":
     print(f"searching '{keyword}' in {board} ({pages} page(s), max {limit_str} records)…", file=sys.stderr)
 
     posts = search(keyword, board, pages, count)
-    path  = save_csv(posts, keyword)
+    path  = save_json(posts, keyword)
     print(f"\nsaved {len(posts)} posts → {path}")
