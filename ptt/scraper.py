@@ -1,7 +1,6 @@
 """PTT (ptt.cc) keyword scraper — search posts and save to CSV."""
 
 import csv
-import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -10,30 +9,14 @@ from urllib.parse import quote
 from bs4 import BeautifulSoup
 from curl_cffi import requests as curl_requests
 
+try:
+    from ptt.clean import clean_content
+except ImportError:
+    from clean import clean_content  # running as script
+
 BASE_URL = "https://www.ptt.cc"
 COOKIE = {"over18": "1"}
 OUTPUT_DIR = Path(__file__).parent / "output"
-
-# Cut points — ordered from most specific to least
-_CUT = re.compile(
-    r"\n※\s*(?:[a-zA-Z]\.|八卦板務|編輯|發信站)"  # board-rule blocks injected before --
-    r"|\n--\s*(?:\n|$)",                           # PTT signature separator
-    re.DOTALL,
-)
-_NOISE      = re.compile(r"(?:※|◆)[^\n]*\n?")    # stray ※ / ◆ lines after cut
-_SEPARATORS = re.compile(r"[-─═=]{3,}")            # decorative separator lines
-_URLS       = re.compile(r"https?://\S+")
-_BLANKS     = re.compile(r"\n{3,}")
-
-
-def _clean(text: str) -> str:
-    m = _CUT.search(text)
-    body = text[:m.start()] if m else text
-    body = _NOISE.sub("", body)
-    body = _SEPARATORS.sub("", body)
-    body = _URLS.sub("", body)
-    body = _BLANKS.sub("\n\n", body)
-    return body.strip()
 
 
 def _parse_time(raw: str) -> str:
@@ -63,7 +46,7 @@ def fetch_post(client: curl_requests.Session, url: str) -> dict | None:
     for tag in main.select("div.article-metaline, div.article-metaline-right, div.push"):
         tag.decompose()
 
-    content = _clean(main.get_text("\n"))
+    content = clean_content(main.get_text("\n"))
     return {
         "title":       title,
         "url":         url,

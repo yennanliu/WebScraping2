@@ -8,7 +8,6 @@ Resume: just re-run the same command; the progress file is picked up automatical
 
 import csv
 import json
-import re
 import sys
 import threading
 import time
@@ -20,33 +19,15 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 from curl_cffi import requests as curl_requests
 
+try:
+    from ptt.clean import clean_content
+except ImportError:
+    from clean import clean_content  # running as script
+
 BASE_URL = "https://www.ptt.cc"
 COOKIE = {"over18": "1"}
 OUTPUT_DIR = Path(__file__).parent / "output"
 CRAWL_DELAY = 0.05  # seconds between index-page requests (be polite)
-
-# ── text cleaning (mirrors scraper.py) ───────────────────────────────────────
-
-_CUT = re.compile(
-    r"\n※\s*(?:[a-zA-Z]\.|八卦板務|編輯|發信站)"
-    r"|\n--\s*(?:\n|$)",
-    re.DOTALL,
-)
-_NOISE = re.compile(r"(?:※|◆)[^\n]*\n?")
-_SEPARATORS = re.compile(r"[-─═=]{3,}")
-_URLS_RE = re.compile(r"https?://\S+")
-_BLANKS = re.compile(r"\n{3,}")
-
-
-def _clean(text: str) -> str:
-    m = _CUT.search(text)
-    body = text[: m.start()] if m else text
-    body = _NOISE.sub("", body)
-    body = _SEPARATORS.sub("", body)
-    body = _URLS_RE.sub("", body)
-    body = _BLANKS.sub("\n\n", body)
-    return body.strip()
-
 
 def _parse_time(raw: str) -> str:
     try:
@@ -142,7 +123,7 @@ def fetch_post(url: str) -> dict | None:
         "url": url,
         "create_time": create_time,
         "author": author,
-        "content": _clean(main.get_text("\n")),
+        "content": clean_content(main.get_text("\n")),
     }
 
 
