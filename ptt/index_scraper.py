@@ -13,7 +13,7 @@ import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -38,6 +38,23 @@ def _parse_time(raw: str) -> str:
         return raw.strip()
 
 
+def _parse_index_date(date_str: str, today: date) -> date | None:
+    """Parse PTT index page date ('M/DD') → date, inferring year from today."""
+    try:
+        month, day = map(int, date_str.strip().split("/"))
+        # try current year first, then previous year
+        for year in (today.year, today.year - 1):
+            try:
+                d = date(year, month, day)
+                if d <= today:
+                    return d
+            except ValueError:
+                continue
+    except (ValueError, AttributeError):
+        pass
+    return None
+
+
 # ── thread-local HTTP session (one curl handle per worker thread) ─────────────
 
 _local = threading.local()
@@ -59,6 +76,7 @@ class PostMeta:
     title: str
     url: str
     author: str = ""
+    date: date | None = None
 
 
 def get_max_index(board: str) -> int:
@@ -83,17 +101,21 @@ def fetch_index_page(board: str, n: int) -> list[PostMeta]:
     resp = _client().get(f"{BASE_URL}/bbs/{board}/index{n}.html")
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "lxml")
+    today = date.today()
     out = []
     for entry in soup.select("div.r-ent"):
         a = entry.select_one("div.title a")
         if not a:
             continue  # deleted post
         author_tag = entry.select_one("div.author")
+        date_tag = entry.select_one("div.date")
+        post_date = _parse_index_date(date_tag.text, today) if date_tag else None
         out.append(
             PostMeta(
                 title=a.text.strip(),
                 url=BASE_URL + a["href"],
                 author=author_tag.text.strip() if author_tag else "",
+                date=post_date,
             )
         )
     return out
@@ -166,8 +188,10 @@ def _phase1(state: dict) -> None:
     seen = set(matched)
     n = state["next_page"]
     total = state["max_page"] - target + 1
+    cutoff = date.today() - timedelta(days=365)
 
     print(f"\nPhase 1/2 — scanning index pages  [{board}]  index{n} → index{target}")
+    print(f"  date filter: posts on or after {cutoff}")
 
     while n >= target:
         try:
@@ -178,6 +202,8 @@ def _phase1(state: dict) -> None:
             continue
 
         for m in metas:
+            if m.date is not None and m.date < cutoff:
+                continue
             if keyword in m.title and m.url not in seen:
                 seen.add(m.url)
                 matched.append(m.url)
@@ -194,6 +220,11 @@ def _phase1(state: dict) -> None:
         state["matched_urls"] = matched
         _save(state)
         time.sleep(CRAWL_DELAY)
+
+        # stop once the oldest post on this page is beyond the cutoff
+        dated = [m.date for m in metas if m.date is not None]
+        if dated and min(dated) < cutoff:
+            break
 
     state["phase1_done"] = True
     _save(state)

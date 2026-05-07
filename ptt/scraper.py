@@ -2,7 +2,7 @@
 
 import json
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import quote
 
@@ -65,6 +65,7 @@ def search(
     """Search a PTT board for posts matching keyword; auto-paginate up to `pages` pages."""
     url = f"{BASE_URL}/bbs/{board}/search?q={quote(keyword)}"
     posts: list[dict] = []
+    cutoff = datetime.now() - timedelta(days=365)
 
     with curl_requests.Session(impersonate="chrome131") as client:
         client.cookies.update(COOKIE)
@@ -79,9 +80,15 @@ def search(
                 if not title_tag:
                     continue
                 post = fetch_post(client, BASE_URL + title_tag["href"])
-                if post:
-                    posts.append(post)
-                    print(f"    [{len(posts)}] {post['title']}", file=sys.stderr)
+                if not post:
+                    continue
+                try:
+                    if datetime.strptime(post["create_time"], "%Y-%m-%d %H:%M:%S") < cutoff:
+                        return posts  # results are newest-first; stop paginating
+                except ValueError:
+                    pass
+                posts.append(post)
+                print(f"    [{len(posts)}] {post['title']}", file=sys.stderr)
                 if count and len(posts) >= count:
                     return posts
 
