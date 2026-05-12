@@ -5,10 +5,9 @@ def search_task(agent: Agent, keyword: str, num_results: int) -> Task:
     return Task(
         description=(
             f'Use the Google Search tool to search for: "{keyword}". '
-            f"Collect {num_results} results (pass num_results={num_results} to the tool). "
-            "Return the full raw JSON string."
+            f"Pass num_results={num_results}. The tool returns a file path — return it as-is."
         ),
-        expected_output=f"A raw JSON string containing up to {num_results} organic search result objects.",
+        expected_output="A file path string like output/.tmp_<keyword>_<timestamp>.json",
         agent=agent,
     )
 
@@ -16,10 +15,10 @@ def search_task(agent: Agent, keyword: str, num_results: int) -> Task:
 def enrich_task(agent: Agent, prior: Task) -> Task:
     return Task(
         description=(
-            "Call the Enrich Results tool, passing the entire JSON string from the previous task as 'records_json'. "
-            "Return the enriched JSON string exactly as the tool returns it."
+            "Call the Enrich Results tool. Pass the file path from the previous task as tmp_file_path. "
+            "The tool returns a new file path — return it as-is."
         ),
-        expected_output='A JSON array where every record has url, original_abstract, and ai_summary fields.',
+        expected_output="A file path string like output/.enriched_<keyword>_<timestamp>.json",
         agent=agent,
         context=[prior],
     )
@@ -28,10 +27,11 @@ def enrich_task(agent: Agent, prior: Task) -> Task:
 def save_task(agent: Agent, keyword: str, prior: Task) -> Task:
     return Task(
         description=(
-            f'The keyword was: "{keyword}". '
-            "Call the Save Results tool with the keyword and the full JSON string from the previous task."
+            f'Call the Save Results tool with keyword="{keyword}" and '
+            "enriched_file_path set to the file path from the previous task. "
+            "Return the confirmation message from the tool."
         ),
-        expected_output="Confirmation message with the file path that was saved.",
+        expected_output="A confirmation string like: Saved N records to output/<keyword>_<timestamp>.json",
         agent=agent,
         context=[prior],
     )
