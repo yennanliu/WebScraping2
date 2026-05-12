@@ -16,15 +16,14 @@ def search_task(agent: Agent, keyword: str, num_results: int) -> Task:
 def extract_task(agent: Agent, prior: Task) -> Task:
     return Task(
         description=(
-            "Parse the raw SerpAPI JSON from the previous task. "
-            "For each result produce a record with exactly these fields:\n"
-            "- url: the result link\n"
-            "- original_abstract: the raw snippet text from Google\n"
-            "- ai_summary: a one-sentence summary of what the page is about\n\n"
-            "Return a valid JSON array of these records and nothing else."
+            "The previous task produced a JSON array of records, each with 'url' and 'original_abstract'.\n"
+            "Your job: add an 'ai_summary' field to EVERY record — a one-sentence summary of what that page is about.\n"
+            "IMPORTANT: preserve every record as-is. Do not filter, merge, or drop any records.\n"
+            "Return a valid JSON array containing ALL records with the added 'ai_summary' field."
         ),
         expected_output=(
-            'A JSON array, e.g. [{"url": "https://...", "original_abstract": "...", "ai_summary": "..."}, ...]'
+            'The complete JSON array with ai_summary added to each record: '
+            '[{"url": "...", "original_abstract": "...", "ai_summary": "..."}, ...]'
         ),
         agent=agent,
         context=[prior],

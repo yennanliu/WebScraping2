@@ -8,8 +8,9 @@ from serpapi import GoogleSearch
 
 @tool("Google Search")
 def google_search_tool(keyword: str, num_results: int = 10) -> str:
-    """Search Google for the keyword and return raw results as a JSON string.
-    Paginates automatically (up to 100 per page) to collect num_results records."""
+    """Search Google for the keyword. Returns a JSON array of {url, original_abstract} records.
+    Paginates automatically (up to 100 per SerpAPI call) to collect num_results records.
+    Note: Google caps organic results at ~100 per query regardless of num_results."""
     collected = []
     page_size = min(100, num_results)
     start = 0
@@ -25,7 +26,11 @@ def google_search_tool(keyword: str, num_results: int = 10) -> str:
         organic = data.get("organic_results", [])
         if not organic:
             break
-        collected.extend(organic)
+        for item in organic:
+            collected.append({
+                "url": item.get("link", ""),
+                "original_abstract": item.get("snippet", ""),
+            })
         start += len(organic)
         if len(organic) < page_size:
             break
