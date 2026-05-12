@@ -9,17 +9,16 @@ from serpapi import GoogleSearch
 @tool("Google Search")
 def google_search_tool(keyword: str, num_results: int = 10) -> str:
     """Search Google for the keyword. Returns a JSON array of {url, original_abstract} records.
-    Paginates automatically (up to 100 per SerpAPI call) to collect num_results records.
-    Note: Google caps organic results at ~100 per query regardless of num_results."""
+    Paginates via SerpAPI's next-page link until num_results are collected or no more pages exist.
+    Google typically exposes up to ~100 organic results per query."""
     collected = []
-    page_size = min(100, num_results)
     start = 0
 
     while len(collected) < num_results:
         params = {
             "q": keyword,
             "api_key": os.environ["SERPAPI_API_KEY"],
-            "num": page_size,
+            "num": 10,
             "start": start,
         }
         data = GoogleSearch(params).get_dict()
@@ -32,7 +31,8 @@ def google_search_tool(keyword: str, num_results: int = 10) -> str:
                 "original_abstract": item.get("snippet", ""),
             })
         start += len(organic)
-        if len(organic) < page_size:
+        # stop only when SerpAPI says there is no next page
+        if not data.get("serpapi_pagination", {}).get("next"):
             break
 
     return json.dumps(collected[:num_results], ensure_ascii=False)
