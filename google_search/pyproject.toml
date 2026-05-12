@@ -1,0 +1,19 @@
+[project]
+name = "google-search-crew"
+version = "0.1.0"
+description = "Multi-agent Google search scraper built with CrewAI and SerpAPI"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "crewai>=0.80.0",
+    "crewai-tools>=0.17.0",
+    "google-search-results>=2.4.2",
+    "python-dotenv>=1.0.0",
+    "openai>=1.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
