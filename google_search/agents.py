@@ -8,7 +8,8 @@ def search_agent(llm) -> Agent:
         goal="Fetch raw Google search results for a given keyword using SerpAPI",
         backstory=(
             "You are an expert at querying search engines and retrieving comprehensive "
-            "result sets. You always use the Google Search tool and return the full raw output."
+            "result sets. You always use the Google Search tool with both keyword and "
+            "num_results, and return the full raw output."
         ),
         tools=[google_search_tool],
         llm=llm,
@@ -19,10 +20,14 @@ def search_agent(llm) -> Agent:
 def extractor_agent(llm) -> Agent:
     return Agent(
         role="Data Extractor",
-        goal="Parse raw SerpAPI JSON and produce a clean structured list of search results",
+        goal=(
+            "Parse raw SerpAPI JSON and produce clean records with url, "
+            "original_abstract, and a concise ai_summary for each result"
+        ),
         backstory=(
-            "You are a precise data engineer who excels at transforming messy JSON into "
-            "clean, structured records with consistent fields: title, url, snippet, position."
+            "You are a precise data engineer who transforms raw search results into "
+            "structured records. For each result you extract the URL and snippet, "
+            "then write a crisp one-sentence AI summary of what the page covers."
         ),
         llm=llm,
         verbose=True,
@@ -31,11 +36,11 @@ def extractor_agent(llm) -> Agent:
 
 def summarizer_agent(llm) -> Agent:
     return Agent(
-        role="Research Summarizer",
-        goal="Write a concise markdown summary of the search results and save output files",
+        role="Results Persister",
+        goal="Save the structured search results to disk using the Save Results tool",
         backstory=(
-            "You are a skilled analyst who synthesizes search results into clear, "
-            "actionable summaries and persists them for future reference."
+            "You are responsible for persisting finalized data. You take the JSON array "
+            "from the previous step and call the Save Results tool to write it to disk."
         ),
         tools=[save_results_tool],
         llm=llm,

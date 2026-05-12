@@ -1,10 +1,14 @@
 from crewai import Agent, Task
 
 
-def search_task(agent: Agent, keyword: str) -> Task:
+def search_task(agent: Agent, keyword: str, num_results: int) -> Task:
     return Task(
-        description=f'Use the Google Search tool to search for: "{keyword}". Return the full raw JSON results.',
-        expected_output="A raw JSON string containing the list of organic search results from SerpAPI.",
+        description=(
+            f'Use the Google Search tool to search for: "{keyword}". '
+            f"Collect {num_results} results (pass num_results={num_results} to the tool). "
+            "Return the full raw JSON string."
+        ),
+        expected_output=f"A raw JSON string containing up to {num_results} organic search result objects from SerpAPI.",
         agent=agent,
     )
 
@@ -13,31 +17,27 @@ def extract_task(agent: Agent, prior: Task) -> Task:
     return Task(
         description=(
             "Parse the raw SerpAPI JSON from the previous task. "
-            "Extract each result into a clean record with these fields: "
-            "position (int), title (str), url (str), snippet (str). "
-            "Return a valid JSON array of these records."
+            "For each result produce a record with exactly these fields:\n"
+            "- url: the result link\n"
+            "- original_abstract: the raw snippet text from Google\n"
+            "- ai_summary: a one-sentence summary of what the page is about\n\n"
+            "Return a valid JSON array of these records and nothing else."
         ),
         expected_output=(
-            'A JSON array of objects, e.g. [{"position": 1, "title": "...", "url": "...", "snippet": "..."}, ...]'
+            'A JSON array, e.g. [{"url": "https://...", "original_abstract": "...", "ai_summary": "..."}, ...]'
         ),
         agent=agent,
         context=[prior],
     )
 
 
-def summarize_task(agent: Agent, keyword: str, prior: Task) -> Task:
+def save_task(agent: Agent, keyword: str, prior: Task) -> Task:
     return Task(
         description=(
             f'The keyword was: "{keyword}". '
-            "Using the structured results from the previous task, do two things:\n"
-            "1. Write a markdown summary: include a # heading with the keyword, "
-            "then a numbered list where each item shows the title, URL, and a one-sentence snippet.\n"
-            "2. Call the Save Results tool with: keyword, the JSON array (as a string), "
-            "and the markdown summary."
+            "Call the Save Results tool with the keyword and the full JSON array string from the previous task."
         ),
-        expected_output=(
-            "Confirmation message showing the two file paths that were saved (JSON and markdown)."
-        ),
+        expected_output="Confirmation message with the file path that was saved.",
         agent=agent,
         context=[prior],
     )

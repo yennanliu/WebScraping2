@@ -7,28 +7,47 @@ from serpapi import GoogleSearch
 
 
 @tool("Google Search")
-def google_search_tool(keyword: str) -> str:
-    """Search Google for the keyword and return raw results as a JSON string."""
-    params = {
-        "q": keyword,
-        "api_key": os.environ["SERPAPI_API_KEY"],
-        "num": 10,
-    }
-    results = GoogleSearch(params).get_dict()
-    organic = results.get("organic_results", [])
-    return json.dumps(organic, ensure_ascii=False)
+def google_search_tool(keyword: str, num_results: int = 10) -> str:
+    """Search Google for the keyword and return raw results as a JSON string.
+    Paginates automatically (up to 100 per page) to collect num_results records."""
+    collected = []
+    page_size = min(100, num_results)
+    start = 0
+
+    while len(collected) < num_results:
+        params = {
+            "q": keyword,
+            "api_key": os.environ["SERPAPI_API_KEY"],
+            "num": page_size,
+            "start": start,
+        }
+        data = GoogleSearch(params).get_dict()
+        organic = data.get("organic_results", [])
+        if not organic:
+            break
+        collected.extend(organic)
+        start += len(organic)
+        if len(organic) < page_size:
+            break
+
+    return json.dumps(collected[:num_results], ensure_ascii=False)
 
 
 @tool("Save Results")
-def save_results_tool(keyword: str, json_content: str, markdown_content: str) -> str:
-    """Save search results to output/<keyword>_<timestamp>.json and .md. Returns saved paths."""
+def save_results_tool(keyword: str, json_content: str) -> str:
+    """Save search results to output/<keyword>_<timestamp>.json.
+    Stamps each record with created_time. Returns the saved file path."""
     os.makedirs("output", exist_ok=True)
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    ts = datetime.now()
+    created_time = ts.isoformat()
     slug = keyword.replace(" ", "_")
-    json_path = f"output/{slug}_{ts}.json"
-    md_path = f"output/{slug}_{ts}.md"
+    json_path = f"output/{slug}_{ts.strftime('%Y%m%d_%H%M%S')}.json"
+
+    records = json.loads(json_content)
+    for record in records:
+        record["created_time"] = created_time
+
     with open(json_path, "w", encoding="utf-8") as f:
-        f.write(json_content)
-    with open(md_path, "w", encoding="utf-8") as f:
-        f.write(markdown_content)
-    return f"Saved: {json_path}, {md_path}"
+        json.dump(records, f, ensure_ascii=False, indent=2)
+
+    return f"Saved {len(records)} records to {json_path}"
