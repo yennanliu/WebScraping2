@@ -2,19 +2,19 @@ import sys
 from dotenv import load_dotenv
 from crewai import Crew, Process, LLM
 
-from agents import search_agent, extractor_agent, summarizer_agent
-from tasks import search_task, extract_task, save_task
+from agents import enricher_agent, persister_agent, search_agent
+from tasks import enrich_task, save_task, search_task
 
 
 def build_crew(keyword: str, num_results: int) -> Crew:
     llm = LLM(model="openai/gpt-4o-mini")
 
     s_agent = search_agent(llm)
-    e_agent = extractor_agent(llm)
-    p_agent = summarizer_agent(llm)
+    e_agent = enricher_agent(llm)
+    p_agent = persister_agent(llm)
 
     t1 = search_task(s_agent, keyword, num_results)
-    t2 = extract_task(e_agent, t1)
+    t2 = enrich_task(e_agent, t1)
     t3 = save_task(p_agent, keyword, t2)
 
     return Crew(
