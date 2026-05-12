@@ -41,7 +41,7 @@ def google_search_tool(keyword: str, num_results: int = 10) -> str:
             break
 
     os.makedirs("output", exist_ok=True)
-    slug = keyword.replace(" ", "_")
+    slug = keyword.replace(" ", "_").replace(":", "-")
     tmp_path = f"output/.tmp_{slug}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     with open(tmp_path, "w", encoding="utf-8") as f:
         json.dump(collected[:num_results], f, ensure_ascii=False)
@@ -160,7 +160,7 @@ def save_results_tool(keyword: str, enriched_file_path: str) -> str:
     for record in records:
         record["created_time"] = created_time
 
-    slug = keyword.replace(" ", "_")
+    slug = keyword.replace(" ", "_").replace(":", "-")
     json_path = f"output/{slug}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(records, f, ensure_ascii=False, indent=2)

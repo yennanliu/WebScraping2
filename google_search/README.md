@@ -64,6 +64,10 @@ uv run python scraper.py "python web scraping 2025"
 
 # specify record count
 uv run python scraper.py "蝦皮" 500
+
+
+# filter with `threads.net` result
+uv run python scraper.py "蝦皮賣家" 20 --site threads.net
 ```
 
 Results are saved to `output/`:

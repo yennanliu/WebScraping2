@@ -28,17 +28,19 @@ def build_crew(keyword: str, num_results: int) -> Crew:
 
 
 if __name__ == "__main__":
+    import argparse
+
     load_dotenv()
 
-    args = sys.argv[1:]
-    if args and args[-1].isdigit():
-        num_results = int(args[-1])
-        keyword = " ".join(args[:-1]) or "python web scraping"
-    else:
-        num_results = 10
-        keyword = " ".join(args) or "python web scraping"
+    parser = argparse.ArgumentParser(description="Google Search multi-agent scraper")
+    parser.add_argument("keyword", help='Search keyword, e.g. "蝦皮賣家外掛"')
+    parser.add_argument("num_results", nargs="?", type=int, default=10, help="Max records to collect (default: 10)")
+    parser.add_argument("--site", default="", help='Restrict results to a domain, e.g. --site threads.net')
+    parsed = parser.parse_args()
 
-    print(f"\n=== Google Search Crew | keyword: {keyword!r} | records: {num_results} ===\n")
-    result = build_crew(keyword, num_results).kickoff()
+    query = f"{parsed.keyword} site:{parsed.site}" if parsed.site else parsed.keyword
+
+    print(f"\n=== Google Search Crew | query: {query!r} | records: {parsed.num_results} ===\n")
+    result = build_crew(query, parsed.num_results).kickoff()
     print("\n=== Done ===\n")
     print(result)
